@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mani Terminal</title>
+<style>
+  /* ===== Base Styling ===== */
+  body {
+    margin: 0;
+    background: radial-gradient(circle at top left, #0b0b0d 0%, #050505 100%);
+    color: #c5c8c6;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Top Bar ===== */
+  #topbar {
+    display: flex;
+    align-items: center;
+    background: #181a1f;
+    color: #9da5b4;
+    padding: 0.4em 1em;
+    font-size: 0.9em;
+    border-bottom: 1px solid #282c34;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  .red { background: #ff5f56; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #27c93f; }
+
+  /* ===== Terminal Body ===== */
+  #terminal {
+    flex: 1;
+    padding: 2vw 6vw;
+    line-height: 1.6em;
+    font-size: clamp(16px, 2.5vw, 20px);
+  }
+
+  .output {
+    margin-bottom: 1em;
+    white-space: pre-wrap;
+  }
+
+  #input-line {
+    display: flex;
+    align-items: center;
+  }
+
+  #prompt {
+    color: #00ff9d;
+  }
+
+  #command {
+    background: transparent;
+    border: none;
+    color: #c5c8c6;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    width: 100%;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background: #00ff9d;
+    margin-left: 3px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { background: transparent; }
+  }
+
+  /* ===== Back Button ===== */
+  #backBtn {
+    position: fixed;
+    top: 0.6em;
+    right: 1em;
+    z-index: 2;
+    background: transparent;
+    border: 1px solid #00ff9d;
+    color: #00ff9d;
+    padding: 0.3em 0.8em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+  }
+
+  #backBtn:hover {
+    background: #00ff9d;
+    color: black;
+  }
+</style>
+</head>
+<body>
+  <div id="topbar">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+    <span style="margin-left:8px;">mani@os: ~/birthday_project</span>
+  </div>
+
+  <button id="backBtn" onclick="window.location.href='index.html'">⟵ Back</button>
+
+  <div id="terminal">
+    <div class="output">Welcome to <b>Mani Terminal v2.0</b><br>Type <b>help</b> to get started.</div>
+
+    <div id="input-line">
+      <span id="prompt">mani@os:~$&nbsp;</span>
+      <input type="text" id="command" autofocus autocomplete="off">
+      <span class="cursor"></span>
+    </div>
+  </div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const input = document.getElementById("command");
+
+    const commands = {
+      help: `Available commands:
+  - about → reveals something sweet
+  - memories → shared moments
+  - credits → who made this
+  - whoami → know your true self
+  - manistory → a story worth reading
+  - sudo laugh → run humor mode
+  - uname -a → system info
+  - clear → clears the terminal
+  - exit → shuts down the system`,
+
+      about: `> Mani, the only person who’s been there since my first day.
+> A paradox of logic and chaos.
+> You don’t just exist in my life — you *anchor* it.
+> The universe got one variable right: you.`,
+
+      memories: `> Shared system logs:
+  • 2010: Playground conspiracies
+  • 2014: That one embarrassing science fair
+  • 2018: “We’re definitely gonna code something cool someday.”
+  • 2024: Still coding, still cool, still you.`,
+
+      credits: `> Project: Mani OS
+> Developer: Shiva
+> Version: 2.0
+> Dedicated to: my day-zero constant 💚`,
+
+      "whoami": `> You are Mani Sharma — root user of my memories 💚`,
+
+      manistory: `> Loading story...
+
+She was there before I could even open my eyes.
+Before I could even speak her name — she already had it in her heart.
+
+Day one.
+Always has been.`,
+
+      "sudo laugh": `😂 Executing humor.sh...
+ManiOS: Too late, system already smiling.`,
+
+      "uname -a": `> ManiOS 2.0 (Built on Friendship Kernel 2006-present)`,
+
+      exit: `System shutting down...
+Goodbye, Mani 💚`
+    };
+
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        const command = input.value.trim().toLowerCase();
+        const output = document.createElement("div");
+        output.className = "output";
+
+        if (command === "clear") {
+          terminal.innerHTML = "";
+          terminal.appendChild(document.getElementById("input-line"));
+        } else if (commands[command]) {
+          output.innerHTML = commands[command].replace(/\n/g, "<br>");
+          terminal.insertBefore(output, input.parentElement);
+        } else if (command === "") {
+          // do nothing
+        } else {
+          output.textContent = `Command not found: ${command}`;
+          terminal.insertBefore(output, input.parentElement);
+        }
+
+        if (command === "exit") {
+          setTimeout(() => {
+            document.body.innerHTML = "<h1 style='color:#00ff9d;text-align:center;margin-top:40vh;font-family:JetBrains Mono'>System Powered Off 🖤</h1>";
+          }, 1200);
+        }
+
+        input.value = "";
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mani OS v4.5</title>
+<style>
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: black;
+    color: #00ff90;
+    font-family: "Courier New", monospace;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  #terminal {
+    position: relative;
+    z-index: 1;
+    white-space: pre-wrap;
+    padding: 6vw 8vw;
+    max-width: 1100px;
+    margin: auto;
+    line-height: 1.8em;
+    font-size: clamp(16px, 2.6vw, 22px);
+    display: none;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 12px;
+    background: #00ff90;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% { background: transparent; }
+  }
+
+  #bootScreen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #00ff90;
+    text-align: center;
+    z-index: 2;
+    transition: opacity 1.5s ease;
+    padding: 2rem;
+  }
+
+  #bootScreen h1 {
+    font-size: clamp(28px, 6vw, 56px);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+
+  #bootScreen p {
+    font-size: clamp(18px, 2.5vw, 24px);
+    margin-bottom: 1.5rem;
+  }
+
+  #bootScreen button {
+    background: transparent;
+    border: 2px solid #00ff90;
+    color: #00ff90;
+    font-size: clamp(18px, 2.2vw, 24px);
+    padding: 0.7em 1.8em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+  }
+
+  #bootScreen button:hover {
+    background: #00ff90;
+    color: black;
+  }
+
+  /* Continue button (appears at end) */
+  #continueBtn {
+    display: none;
+    position: relative;
+    z-index: 2;
+    margin: 2rem auto;
+    text-align: center;
+  }
+
+  #continueBtn button {
+    background: transparent;
+    border: 2px solid #00ff90;
+    color: #00ff90;
+    font-size: clamp(18px, 2.2vw, 24px);
+    padding: 0.7em 1.8em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+  }
+
+  #continueBtn button:hover {
+    background: #00ff90;
+    color: black;
+  }
+</style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+
+<!-- Boot Screen -->
+<div id="bootScreen">
+  <h1>Mani OS v4.5</h1>
+  <p>Click to boot system...</p>
+  <button id="bootBtn">BOOT</button>
+</div>
+
+<pre id="terminal"></pre>
+
+<!-- Continue Button -->
+<div id="continueBtn">
+  <button onclick="window.location.href='terminal.html'">Continue ▶</button>
+</div>
+
+<audio id="bgm" loop>
+  <source src="song.mpeg" type="audio/mpeg">
+</audio>
+
+<script>
+/* -------- Matrix Background -------- */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?";
+let fontSize = 18;
+let drops = [];
+function resetDrops() {
+  let columns = canvas.width / fontSize;
+  drops = Array(Math.floor(columns)).fill(1);
+}
+resetDrops();
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#00ff90";
+  ctx.font = fontSize + "px monospace";
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 40);
+
+/* -------- Terminal Typing -------- */
+const lines = [
+  "Booting Mani OS v4.5...",
+  "System check: PASS ✅",
+  "Loading emotional modules...",
+  "  > logic_core.dll ... loaded",
+  "  > empathy_engine.sys ... loaded",
+  "  > chaos_protocols.js ... loaded",
+  "",
+  "Accessing user profile [Mani]...",
+  "INTP personality detected.",
+  "Core traits: analytical | creative | chaotic good | deep thinker",
+  "Interests: AI, Physics, Anime, Crochet, Chess",
+  "",
+  "⚙️ Academic path:",
+  "  2nd year → BTech CSE (AI)",
+  "  Roadmap: Python → DSA → AI → Research",
+  "",
+  "💡 Dream Node:",
+  "  Nuclear Research Scientist — blending atoms with algorithms",
+  "",
+  "🧠 Strength Protocols:",
+  "  - Logical reasoning",
+  "  - Pattern recognition",
+  "  - Beautiful mind disorder (overthinking.exe)",
+  "",
+  "💬 System Notes:",
+  "  - Kind soul behind logic firewall",
+  "  - Only crashes when sleep < 4 hours",
+  "  - Trust level: [MAXED OUT]",
+  "",
+  ">>> Birthday Mode Activated 🎉",
+  "Calibrating message...",
+  "",
+  "Happy Birthday, Mani 💚",
+  "You've been here since line 0 — my constant in every version of life.",
+  "May your code compile, your dreams run smoothly, and your debugger be kind.",
+  "",
+  "-- from your day-zero buddy, Shiva 🖤",
+  "",
+  "",
+  ">>> End of boot log.",
+];
+
+const terminal = document.getElementById("terminal");
+const continueBtn = document.getElementById("continueBtn");
+let i = 0;
+
+function typeLine() {
+  if (i < lines.length) {
+    terminal.textContent += lines[i++] + "\n";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    setTimeout(typeLine, 160);
+  } else {
+    terminal.innerHTML += '<span class="cursor"></span>';
+    setTimeout(() => {
+      continueBtn.style.display = "block";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, 2000);
+  }
+}
+
+/* -------- Boot Sequence -------- */
+const bootBtn = document.getElementById("bootBtn");
+const bootScreen = document.getElementById("bootScreen");
+const bgm = document.getElementById("bgm");
+
+bootBtn.addEventListener("click", () => {
+  bgm.play();
+  bootScreen.style.opacity = "0";
+  setTimeout(() => {
+    bootScreen.style.display = "none";
+    terminal.style.display = "block";
+    setTimeout(() => (terminal.style.opacity = "1"), 100);
+    typeLine();
+  }, 1500);
+});
+</script>
+</body>
+</html>

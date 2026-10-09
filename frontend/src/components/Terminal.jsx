@@ -11,7 +11,9 @@ export default function Terminal({ onExit, onOpenWindow }) {
       type: 'output',
       content: (
         <div>
-          <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>Welcome to Mani Terminal v5.0</span>
+          <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>
+            Welcome to {SYSTEM_DATA.osName} Terminal v{SYSTEM_DATA.version}
+          </span>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.2rem' }}>
             Interactive Unix shell • Type <b style={{ color: 'var(--accent-green)' }}>help</b> or click any command below to begin.
           </div>
@@ -87,10 +89,11 @@ export default function Terminal({ onExit, onOpenWindow }) {
       case 'about':
         responseContent = (
           <div style={{ borderLeft: '3px solid var(--accent-green)', paddingLeft: '0.8rem', color: '#c5c8c6', lineHeight: '1.8' }}>
-            <p style={{ color: 'var(--accent-green)' }}>&gt; Mani, the only person who's been there since my line 0.</p>
-            <p>&gt; A paradox of logic and chaos, analytical brilliance and warmth.</p>
-            <p>&gt; You don't just exist in my life — you <i style={{ color: '#fff' }}>anchor</i> it.</p>
-            <p>&gt; The universe got one variable right: <b>you.</b> 💚</p>
+            {SYSTEM_DATA.quotes.about.map((line, idx) => (
+              <p key={idx} style={{ color: idx === 0 ? 'var(--accent-green)' : 'inherit', margin: '0.2rem 0' }}>
+                &gt; {line}
+              </p>
+            ))}
           </div>
         );
         break;
@@ -113,9 +116,9 @@ export default function Terminal({ onExit, onOpenWindow }) {
       case 'whoami':
         responseContent = (
           <div style={{ color: 'var(--accent-green)', fontWeight: 600 }}>
-            &gt; You are <span style={{ color: '#fff', textDecoration: 'underline' }}>Mani Sharma</span> — root user of my memories 💚
+            &gt; {SYSTEM_DATA.quotes.whoami.main}
             <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.2rem' }}>
-              Security clearance: UNRESTRICTED • Encryption Key: LIFETIME_BOND
+              {SYSTEM_DATA.quotes.whoami.subtext}
             </div>
           </div>
         );
@@ -134,8 +137,8 @@ export default function Terminal({ onExit, onOpenWindow }) {
       case 'sudo laugh':
         responseContent = (
           <div style={{ color: 'var(--accent-amber)' }}>
-            😂 Executing humor.sh...<br />
-            <span style={{ color: 'var(--accent-green)' }}>ManiOS: Too late, system already smiling!</span>
+            {SYSTEM_DATA.quotes.humor.header}<br />
+            <span style={{ color: 'var(--accent-green)' }}>{SYSTEM_DATA.quotes.humor.reply}</span>
           </div>
         );
         break;
@@ -143,10 +146,10 @@ export default function Terminal({ onExit, onOpenWindow }) {
       case 'credits':
         responseContent = (
           <div style={{ lineHeight: '1.7', color: 'var(--text-main)' }}>
-            <div>&gt; Project: <b style={{ color: 'var(--accent-green)' }}>Mani OS v5.0 (Birthday Edition)</b></div>
-            <div>&gt; Developer: <b style={{ color: 'var(--accent-cyan)' }}>Shiva</b></div>
-            <div>&gt; Architecture: Modern Node.js + React + Web Audio API</div>
-            <div>&gt; Dedicated to: My day-zero constant 💚</div>
+            <div>&gt; Project: <b style={{ color: 'var(--accent-green)' }}>{SYSTEM_DATA.quotes.credits.project}</b></div>
+            <div>&gt; Developer: <b style={{ color: 'var(--accent-cyan)' }}>{SYSTEM_DATA.quotes.credits.developer}</b></div>
+            <div>&gt; Architecture: {SYSTEM_DATA.quotes.credits.architecture}</div>
+            <div>&gt; Dedicated to: {SYSTEM_DATA.quotes.credits.dedication}</div>
           </div>
         );
         break;
@@ -154,7 +157,7 @@ export default function Terminal({ onExit, onOpenWindow }) {
       case 'uname -a':
         responseContent = (
           <div style={{ color: 'var(--accent-green)' }}>
-            &gt; ManiOS 5.0.0-friendship x86_64 (Built on Friendship Kernel 2006-present GNU/Love)
+            &gt; {SYSTEM_DATA.quotes.uname}
           </div>
         );
         break;
@@ -185,7 +188,7 @@ export default function Terminal({ onExit, onOpenWindow }) {
             type: 'output',
             content: (
               <div style={{ color: 'var(--accent-rose)', fontWeight: 700 }}>
-                System shutting down... Goodbye Mani 🖤
+                {SYSTEM_DATA.quotes.shutdown}
               </div>
             )
           }
@@ -286,7 +289,7 @@ export default function Terminal({ onExit, onOpenWindow }) {
             <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#27c93f', display: 'inline-block' }} />
           </div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginLeft: '0.5rem' }}>
-            mani@os: ~/birthday_project (zsh)
+            {SYSTEM_DATA.profile.handle}: {SYSTEM_DATA.systemConfig.workingDirectory} (zsh)
           </span>
         </div>
 
@@ -353,7 +356,7 @@ export default function Terminal({ onExit, onOpenWindow }) {
           <div key={entry.id} style={{ marginBottom: '0.9rem' }}>
             {entry.type === 'input' ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ color: 'var(--accent-green)', fontWeight: 600 }}>mani@os:~$</span>
+                <span style={{ color: 'var(--accent-green)', fontWeight: 600 }}>{SYSTEM_DATA.systemConfig.shellPrompt}</span>
                 <span style={{ color: '#fff' }}>{entry.content}</span>
               </div>
             ) : (
@@ -364,7 +367,7 @@ export default function Terminal({ onExit, onOpenWindow }) {
 
         {/* Current Active Input Line */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>
-          <span style={{ color: 'var(--accent-green)', fontWeight: 600, userSelect: 'none' }}>mani@os:~$</span>
+          <span style={{ color: 'var(--accent-green)', fontWeight: 600, userSelect: 'none' }}>{SYSTEM_DATA.systemConfig.shellPrompt}</span>
           <input
             ref={inputRef}
             type="text"

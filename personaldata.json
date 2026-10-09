@@ -1,0 +1,185 @@
+{
+  "system": {
+    "version": "5.0.0",
+    "osName": "Mani OS",
+    "subtitle": "Birthday Edition",
+    "releaseTag": "Dedicated Birthday Release • Day-Zero Kernel",
+    "kernel": "Friendship Kernel 2006-present GNU/Love",
+    "shellPrompt": "mani@os:~$",
+    "workingDirectory": "~/birthday_project",
+    "soundtrack": {
+      "file": "song.mpeg",
+      "title": "Mani OS Soundtrack",
+      "album": "Friendship Kernel OST"
+    },
+    "nuclearLab": {
+      "title": "Nuclear & AI Quantum Chamber",
+      "subtitle": "Mani's Research Lab: \"Blending Atoms with Algorithms\"",
+      "initialEnergy": 75
+    }
+  },
+  "user": {
+    "name": "Mani Sharma",
+    "nickname": "Mani",
+    "handle": "mani@root",
+    "role": "Root User / Best Friend",
+    "personality": "INTP",
+    "personalityTitle": "The Logician (The Architect & Philosopher)",
+    "traits": [
+      "Analytical",
+      "Creative",
+      "Chaotic Good",
+      "Deep Thinker"
+    ],
+    "strengthProtocols": [
+      "Logical reasoning",
+      "Pattern recognition",
+      "Beautiful mind disorder (overthinking.exe)"
+    ],
+    "interests": [
+      {
+        "name": "Artificial Intelligence",
+        "category": "AI",
+        "icon": "Brain"
+      },
+      {
+        "name": "Quantum & Nuclear Physics",
+        "category": "Physics",
+        "icon": "Atom"
+      },
+      {
+        "name": "Anime & Storytelling",
+        "category": "Anime",
+        "icon": "Tv"
+      },
+      {
+        "name": "Crochet & Crafting",
+        "category": "Crochet",
+        "icon": "Sparkles"
+      },
+      {
+        "name": "Chess Strategy",
+        "category": "Chess",
+        "icon": "Trophy"
+      }
+    ],
+    "academic": {
+      "status": "2nd Year BTech CSE (AI)",
+      "major": "Computer Science and Engineering (Artificial Intelligence Specialization)",
+      "roadmap": [
+        "Python Foundations",
+        "Data Structures & Algorithms (DSA)",
+        "Advanced AI & Machine Learning Models",
+        "Deep Scientific Research"
+      ],
+      "targetGoal": "Nuclear Research Scientist",
+      "targetGoalSubtitle": "Blending atoms with algorithms",
+      "currentFocus": "Blending atoms with algorithms to decode quantum computing"
+    },
+    "systemNotes": [
+      "Kind soul protected behind a logic firewall.",
+      "Vulnerability: Sleep < 4 hours triggers overthinking.exe to spike.",
+      "Trust level: 100% [MAXED OUT FOREVER]."
+    ]
+  },
+  "developer": {
+    "name": "Shiva",
+    "role": "Developer & Lifelong Friend",
+    "relationship": "Day-zero buddy (Known since line 0 / ~2006)",
+    "bond": "Constant in every version of life"
+  },
+  "memories": [
+    {
+      "year": "2010",
+      "title": "The Hospital Legend",
+      "tag": "Combat Log",
+      "event": "When you actually beat a guy and sent him to the hospital",
+      "description": "When you actually beat a guy and sent him to the hospital. Unmatched warrior energy that no system firewall could contain.",
+      "badge": "Legendary"
+    },
+    {
+      "year": "2019",
+      "title": "Height Inversion Epoch",
+      "tag": "Physical Metric",
+      "event": "When you were taller than me for the last time",
+      "description": "When you were taller than me for the last time before genetics decided to play catch-up.",
+      "badge": "Nostalgia"
+    },
+    {
+      "year": "2024",
+      "title": "Operation Firecracker",
+      "tag": "Fear Protocol Cleared",
+      "event": "When we as a team came over your fear of cracker",
+      "description": "When we as a team came over your fear of cracker. Pure courage unlocked together.",
+      "badge": "Achievement"
+    },
+    {
+      "year": "2025 - Present",
+      "title": "The Constant Equation",
+      "tag": "Kernel Anchor",
+      "event": "Still coding, still cool, still you",
+      "description": "Still coding, still cool, still you. The constant variable in an ever-shifting multiverse.",
+      "badge": "Constant"
+    }
+  ],
+  "quotes": {
+    "about": [
+      "Mani, the only person who's been there since my first day.",
+      "A paradox of logic and chaos, analytical brilliance and warmth.",
+      "You don't just exist in my life — you anchor it.",
+      "The universe got one variable right: you. 💚"
+    ],
+    "story": [
+      "She was there before I could even open my eyes.",
+      "Before I could even speak her name — she already had it in her heart.",
+      "Day one.",
+      "Always has been.",
+      "You don't just exist in my life — you anchor it.",
+      "The universe got one variable right: you."
+    ],
+    "birthday": {
+      "title": "Happy Birthday, Mani 💚",
+      "line1": "You've been here since line 0 — my constant in every version of life.",
+      "line2": "May your code compile, your dreams run smoothly, and your debugger be kind.",
+      "signature": "-- from your day-zero buddy, Shiva 🖤"
+    },
+    "whoami": {
+      "main": "You are Mani Sharma — root user of my memories 💚",
+      "subtext": "Security clearance: UNRESTRICTED • Encryption Key: LIFETIME_BOND"
+    },
+    "credits": {
+      "project": "Mani OS v5.0 (Birthday Edition)",
+      "developer": "Shiva",
+      "architecture": "Modern Node.js + React + Web Audio API",
+      "dedication": "My day-zero constant 💚"
+    },
+    "uname": "ManiOS 5.0.0-friendship x86_64 (Built on Friendship Kernel 2006-present GNU/Love)",
+    "humor": {
+      "header": "😂 Executing humor.sh...",
+      "reply": "ManiOS: Too late, system already smiling!"
+    },
+    "shutdown": "System shutting down... Goodbye Mani 🖤"
+  },
+  "bootSequence": [
+    { "text": "Initializing Mani OS Kernel v5.0.0-friendship...", "type": "info" },
+    { "text": "Mounting emotional file systems [OK]", "type": "success" },
+    { "text": "  > logic_core.dll ... verified [SHA-256 MATCH]", "type": "detail" },
+    { "text": "  > empathy_engine.sys ... active & calibrated", "type": "detail" },
+    { "text": "  > chaos_protocols.js ... 100% operational", "type": "detail" },
+    { "text": "Scanning neural network for user signature...", "type": "info" },
+    { "text": "Target identified: Mani Sharma [Root Privileges Granted]", "type": "success" },
+    { "text": "Personality classification: INTP (The Logician)", "type": "accent" },
+    { "text": "Core attributes: Analytical • Creative • Chaotic Good • Deep Thinker", "type": "detail" },
+    { "text": "Known Interests: Artificial Intelligence, Quantum/Nuclear Physics, Anime, Crochet, Chess", "type": "detail" },
+    { "text": "Academic Pipeline: 2nd Year BTech CSE (AI Specialization)", "type": "info" },
+    { "text": "Master Roadmap: Python ➔ DSA ➔ Advanced AI Models ➔ Deep Scientific Research", "type": "detail" },
+    { "text": "Target Life Node: Nuclear Research Scientist (Merging Atoms with Algorithms)", "type": "accent" },
+    { "text": "Strength Protocols: Logical reasoning • Pattern recognition • Beautiful mind disorder (overthinking.exe)", "type": "detail" },
+    { "text": "System Notes: Kind soul behind logic firewall. Trust Level: [MAXED OUT]", "type": "success" },
+    { "text": ">>> BIRTHDAY_EVENT_TRIGGERED: Happy Birthday, Mani! 💚", "type": "highlight" },
+    { "text": "\"You've been here since line 0 — my constant in every version of life.\"", "type": "quote" },
+    { "text": "\"May your code compile, your dreams run smoothly, and your debugger be kind.\"", "type": "quote" },
+    { "text": "-- from your day-zero buddy, Shiva 🖤", "type": "signature" },
+    { "text": "System ready. Welcome home, Mani.", "type": "ready" }
+  ]
+}

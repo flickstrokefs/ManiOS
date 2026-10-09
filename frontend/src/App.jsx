@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import ManiLanding from './components/ManiLanding';
 import MatrixBackground from './components/MatrixBackground';
 import CRTOverlay from './components/CRTOverlay';
-import BootSequence from './components/BootSequence';
 import TopBar from './components/TopBar';
 import Terminal from './components/Terminal';
 import AudioPlayer from './components/AudioPlayer';
@@ -10,22 +10,31 @@ import MemoriesVault from './components/MemoriesVault';
 import NuclearSim from './components/NuclearSim';
 import { Power, RotateCcw } from 'lucide-react';
 import { sfx } from './sound/sfx';
+import { SYSTEM_DATA } from './data/systemData';
 
 export default function App() {
+  const [inLanding, setInLanding] = useState(true);
   const [booted, setBooted] = useState(false);
   const [startAudioTrigger, setStartAudioTrigger] = useState(false);
+  const [audioMuted, setAudioMuted] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [memoriesOpen, setMemoriesOpen] = useState(false);
   const [nuclearOpen, setNuclearOpen] = useState(false);
   const [crtEnabled, setCrtEnabled] = useState(true);
   const [isShutDown, setIsShutDown] = useState(false);
 
-  const handleBootComplete = () => {
-    setBooted(true);
-  };
-
   const handleStartAudio = () => {
     setStartAudioTrigger(true);
+  };
+
+  const handleToggleAudioMute = (muted) => {
+    setAudioMuted(muted);
+  };
+
+  const handleEnterOS = () => {
+    sfx.playBootChime();
+    setInLanding(false);
+    setBooted(true);
   };
 
   const handleShutdown = () => {
@@ -36,6 +45,7 @@ export default function App() {
     sfx.playBootChime();
     setIsShutDown(false);
     setBooted(false);
+    setInLanding(true);
   };
 
   if (isShutDown) {
@@ -60,7 +70,7 @@ export default function App() {
           System Powered Off 🖤
         </h1>
         <p style={{ color: 'var(--text-muted)', maxWidth: '420px', fontSize: '0.95rem' }}>
-          Friendship Kernel safely unmounted. Thank you for being you, Mani.
+          Friendship Kernel safely unmounted. Thank you for being you, {SYSTEM_DATA.profile.nickname || SYSTEM_DATA.user}.
         </p>
         <button
           className="cyber-btn cyber-btn-primary"
@@ -75,22 +85,28 @@ export default function App() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
-      {/* Background Matrix Rain */}
-      <MatrixBackground opacity={booted ? 0.45 : 0.85} themeColor="#00ff9d" />
+      {/* Background Matrix Rain (Desktop) */}
+      {!inLanding && (
+        <MatrixBackground opacity={booted ? 0.45 : 0.85} themeColor="#00ff9d" />
+      )}
 
-      {/* CRT Scanline Overlay */}
-      <CRTOverlay enabled={crtEnabled} />
+      {/* CRT Scanline Overlay (Desktop) */}
+      {!inLanding && (
+        <CRTOverlay enabled={crtEnabled} />
+      )}
 
-      {/* Boot Screen Sequence */}
-      {!booted && (
-        <BootSequence
-          onBootComplete={handleBootComplete}
+      {/* Mani OS Landing + Boot Experience */}
+      {inLanding && (
+        <ManiLanding
+          onEnterOS={handleEnterOS}
           onStartAudio={handleStartAudio}
+          audioMuted={audioMuted}
+          onToggleAudioMute={handleToggleAudioMute}
         />
       )}
 
       {/* Desktop OS Environment */}
-      {booted && (
+      {!inLanding && booted && (
         <>
           <TopBar
             onOpenProfile={() => setProfileOpen(true)}
@@ -98,7 +114,10 @@ export default function App() {
             onOpenNuclear={() => setNuclearOpen(true)}
             crtEnabled={crtEnabled}
             onToggleCrt={() => setCrtEnabled(!crtEnabled)}
-            onResetBoot={() => setBooted(false)}
+            onResetBoot={() => {
+              setBooted(false);
+              setInLanding(true);
+            }}
           />
 
           <main
@@ -127,15 +146,20 @@ export default function App() {
             </div>
           </main>
 
-          {/* Persistent Background Music Player */}
-          <AudioPlayer autoPlayTrigger={startAudioTrigger} />
-
           {/* Modals & Sub-Modules */}
           {profileOpen && <ProfileModal onClose={() => setProfileOpen(false)} />}
           {memoriesOpen && <MemoriesVault onClose={() => setMemoriesOpen(false)} />}
           {nuclearOpen && <NuclearSim onClose={() => setNuclearOpen(false)} />}
         </>
       )}
+
+      {/* Persistent Background Music Player (continuous across landing and desktop) */}
+      <AudioPlayer
+        autoPlayTrigger={startAudioTrigger}
+        visible={!inLanding && booted}
+        isMutedExternal={audioMuted}
+        onToggleMuteExternal={handleToggleAudioMute}
+      />
     </div>
   );
 }

@@ -77,3 +77,9 @@ This document provides a line-by-line verification record distinguishing between
 > **The Rule of the Project:**  
 > The **emotional, relational, and biographical data is 100% genuine**.  
 > The **operating system, file system, physics simulations, and terminal mechanics are 100% cosmetic theater** designed to make the real message unforgettable to someone who loves computer science and physics.
+
+---
+
+## 4. Single Source of Truth (`personaldata.json`)
+
+All authentic biographical records, timeline milestones, and quotes identified in this dossier are consolidated into `personaldata.json` (also mirrored at `frontend/src/data/personaldata.json` and `frontend/public/personaldata.json`). The frontend React application dynamically ingests this JSON file via `systemData.js`, ensuring zero hardcoded desynchronization between verified real-life history and the user interface.

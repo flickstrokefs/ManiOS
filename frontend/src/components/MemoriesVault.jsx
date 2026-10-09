@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Calendar, Bookmark, Heart, Sparkles } from 'lucide-react';
+import { X, Calendar, Bookmark, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
 import { SYSTEM_DATA } from '../data/systemData';
 
 export default function MemoriesVault({ onClose }) {
@@ -45,7 +45,7 @@ export default function MemoriesVault({ onClose }) {
               </h2>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-              Uncorrupted kernel memories across the timeline
+              Uncorrupted kernel memories across the timeline • Sourced from personaldata.json
             </p>
           </div>
 
@@ -92,6 +92,22 @@ export default function MemoriesVault({ onClose }) {
               <div style={{ fontSize: '0.8rem', color: 'var(--accent-green)', fontWeight: 600 }}>
                 PROTOCOL: [{m.tag}]
               </div>
+
+              {m.event && (
+                <div
+                  style={{
+                    fontSize: '0.85rem',
+                    color: '#93c5fd',
+                    fontStyle: 'italic',
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    padding: '0.4rem 0.7rem',
+                    borderRadius: '4px',
+                    borderLeft: '2px solid var(--accent-cyan)'
+                  }}
+                >
+                  Authentic Log: "{m.event}"
+                </div>
+              )}
 
               <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: '1.65' }}>
                 {m.description}

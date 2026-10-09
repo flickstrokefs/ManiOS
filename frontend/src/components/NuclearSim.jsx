@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Atom, Zap, RefreshCw, Sparkles } from 'lucide-react';
 import { sfx } from '../sound/sfx';
+import { SYSTEM_DATA } from '../data/systemData';
 
 export default function NuclearSim({ onClose }) {
   const canvasRef = useRef(null);
@@ -130,10 +131,10 @@ export default function NuclearSim({ onClose }) {
             <Atom size={22} />
             <div>
               <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.4rem', fontWeight: 700, color: '#fff' }}>
-                Nuclear & AI Quantum Chamber
+                {SYSTEM_DATA.systemConfig.nuclearLab.title}
               </h2>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Mani's Research Lab: "Blending Atoms with Algorithms"
+                {SYSTEM_DATA.systemConfig.nuclearLab.subtitle}
               </div>
             </div>
           </div>

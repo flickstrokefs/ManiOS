@@ -1,9 +1,26 @@
 import React from 'react';
-import { User, X, Brain, Atom, Sparkles, CheckCircle2, ShieldCheck, Heart } from 'lucide-react';
-import { SYSTEM_DATA } from '../data/systemData';
+import { User, X, Brain, Atom, Sparkles, CheckCircle2, ShieldCheck, Heart, Tv, Trophy, Cpu } from 'lucide-react';
+import { SYSTEM_DATA, PERSONAL_DATA } from '../data/systemData';
 
 export default function ProfileModal({ onClose }) {
   const { profile } = SYSTEM_DATA;
+
+  const getInterestIcon = (name) => {
+    switch (name) {
+      case 'Brain':
+        return <Brain size={16} color="var(--accent-green)" />;
+      case 'Atom':
+        return <Atom size={16} color="var(--accent-cyan)" />;
+      case 'Tv':
+        return <Tv size={16} color="#fbbf24" />;
+      case 'Sparkles':
+        return <Sparkles size={16} color="#e879f9" />;
+      case 'Trophy':
+        return <Trophy size={16} color="#38bdf8" />;
+      default:
+        return <Sparkles size={16} color="var(--accent-green)" />;
+    }
+  };
 
   return (
     <div
@@ -23,9 +40,9 @@ export default function ProfileModal({ onClose }) {
       <div
         className="glass-panel-elevated"
         style={{
-          maxWidth: '680px',
+          maxWidth: '700px',
           width: '100%',
-          maxHeight: '88vh',
+          maxHeight: '90vh',
           borderRadius: 'var(--radius-lg)',
           overflowY: 'auto',
           padding: '2rem',
@@ -61,6 +78,7 @@ export default function ProfileModal({ onClose }) {
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', marginTop: '0.2rem' }}>
                 <span className="cyber-badge">{profile.personality}</span>
                 <span className="cyber-badge cyber-badge-cyan">{profile.academic.status}</span>
+                <span className="cyber-badge cyber-badge-amber">{profile.role}</span>
               </div>
             </div>
           </div>
@@ -74,27 +92,96 @@ export default function ProfileModal({ onClose }) {
           </button>
         </div>
 
-        {/* Traits & Architecture */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-          {profile.traits.map((trait, i) => (
-            <div
-              key={i}
-              style={{
-                background: 'rgba(0, 0, 0, 0.35)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: 'var(--radius-sm)',
-                padding: '0.65rem 0.85rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.85rem'
-              }}
-            >
-              <Sparkles size={14} color="var(--accent-green)" />
-              <span style={{ color: 'var(--text-main)' }}>{trait}</span>
-            </div>
-          ))}
+        {/* Traits */}
+        <div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 600 }}>
+            CORE ATTRIBUTES & TRAITS:
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.6rem' }}>
+            {profile.traits.map((trait, i) => (
+              <div
+                key={i}
+                style={{
+                  background: 'rgba(0, 0, 0, 0.35)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '0.6rem 0.8rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '0.85rem'
+                }}
+              >
+                <Sparkles size={14} color="var(--accent-green)" />
+                <span style={{ color: 'var(--text-main)' }}>{trait}</span>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Interests */}
+        <div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 600 }}>
+            AUTHENTIC PERSONAL INTERESTS:
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.6rem' }}>
+            {profile.interests.map((interest, i) => (
+              <div
+                key={i}
+                style={{
+                  background: 'rgba(0, 0, 0, 0.35)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '0.6rem 0.8rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  fontSize: '0.85rem'
+                }}
+              >
+                {getInterestIcon(interest.icon)}
+                <span style={{ color: 'var(--text-main)' }}>{interest.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Strength Protocols */}
+        {profile.strengthProtocols && (
+          <div
+            style={{
+              background: 'rgba(0, 255, 157, 0.05)',
+              border: '1px solid rgba(0, 255, 157, 0.25)',
+              borderRadius: 'var(--radius-md)',
+              padding: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-green)', fontWeight: 700, fontSize: '0.85rem' }}>
+              <Cpu size={16} />
+              <span>Strength Protocols & Cognitive Architecture</span>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.2rem' }}>
+              {profile.strengthProtocols.map((sp, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    fontSize: '0.8rem',
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    padding: '0.25rem 0.65rem',
+                    borderRadius: '4px',
+                    border: '1px solid rgba(0, 255, 157, 0.2)',
+                    color: '#e2e8f0'
+                  }}
+                >
+                  ⚡ {sp}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Dream Node */}
         <div
@@ -110,7 +197,10 @@ export default function ProfileModal({ onClose }) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-cyan)', fontWeight: 700 }}>
             <Atom size={20} />
-            <span>Target Life Node: Nuclear Research Scientist</span>
+            <span>Target Life Node: {profile.academic.targetGoal}</span>
+          </div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            "{profile.academic.targetGoalSubtitle}"
           </div>
           <p style={{ fontSize: '0.9rem', color: '#e2e8f0', lineHeight: '1.6' }}>
             {profile.academic.currentFocus}
@@ -165,7 +255,7 @@ export default function ProfileModal({ onClose }) {
         {/* Footer quote */}
         <div style={{ textAlign: 'center', color: 'var(--accent-green)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
           <Heart size={16} fill="var(--accent-green)" color="var(--accent-green)" />
-          <span>Constant since Line 0 • Crafted by Shiva</span>
+          <span>Constant since Line 0 • Crafted by {SYSTEM_DATA.developer}</span>
         </div>
       </div>
     </div>

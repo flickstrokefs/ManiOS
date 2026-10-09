@@ -121,10 +121,10 @@ export default function BootSequence({ onBootComplete, onStartAudio }) {
                 marginBottom: '0.35rem'
               }}
             >
-              Mani OS <span style={{ color: 'var(--accent-green)' }}>v5.0</span>
+              {SYSTEM_DATA.osName} <span style={{ color: 'var(--accent-green)' }}>v{SYSTEM_DATA.version}</span>
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-              Dedicated Birthday Release • Day-Zero Kernel
+              {SYSTEM_DATA.systemConfig.releaseTag}
             </p>
           </div>
 
@@ -309,7 +309,7 @@ export default function BootSequence({ onBootComplete, onStartAudio }) {
                 onClick={handleEnterOS}
                 style={{ fontSize: '0.95rem' }}
               >
-                ENTER MANI OS <ChevronRight size={16} />
+                ENTER {SYSTEM_DATA.osName.toUpperCase()} <ChevronRight size={16} />
               </button>
             </div>
           )}

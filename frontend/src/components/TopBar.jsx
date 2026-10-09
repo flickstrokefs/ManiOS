@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal as TerminalIcon, User, Bookmark, Atom, Monitor, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import { sfx } from '../sound/sfx';
+import { SYSTEM_DATA } from '../data/systemData';
 
 export default function TopBar({
   onOpenProfile,
@@ -56,7 +57,7 @@ export default function TopBar({
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span style={{ fontWeight: 800, color: '#fff', fontSize: '0.9rem', letterSpacing: '-0.01em' }}>
-            Mani OS <span style={{ color: 'var(--accent-green)' }}>v5.0</span>
+            {SYSTEM_DATA.osName} <span style={{ color: 'var(--accent-green)' }}>v{SYSTEM_DATA.version}</span>
           </span>
           <span className="cyber-badge" style={{ fontSize: '0.68rem', padding: '0.1rem 0.45rem' }}>
             ONLINE

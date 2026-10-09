@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Disc, Music } from 'lucide-react';
 import { sfx } from '../sound/sfx';
+import { SYSTEM_DATA } from '../data/systemData';
 
-export default function AudioPlayer({ autoPlayTrigger }) {
+export default function AudioPlayer({ autoPlayTrigger, visible = true, isMutedExternal, onToggleMuteExternal }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.7);
@@ -10,6 +11,13 @@ export default function AudioPlayer({ autoPlayTrigger }) {
   const [duration, setDuration] = useState(0);
   const [minimized, setMinimized] = useState(false);
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (isMutedExternal !== undefined && audioRef.current) {
+      setIsMuted(isMutedExternal);
+      audioRef.current.muted = isMutedExternal;
+    }
+  }, [isMutedExternal]);
 
   useEffect(() => {
     if (autoPlayTrigger && audioRef.current) {
@@ -71,11 +79,11 @@ export default function AudioPlayer({ autoPlayTrigger }) {
     <>
       <audio
         ref={audioRef}
-        src="/song.mpeg"
+        src="/mono.mp3"
         loop
         onTimeUpdate={handleTimeUpdate}
       />
-
+      {visible && (
       <div
         className="glass-panel"
         style={{
@@ -115,7 +123,7 @@ export default function AudioPlayer({ autoPlayTrigger }) {
 
             <div>
               <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                Mani OS Soundtrack
+                {SYSTEM_DATA.systemConfig.soundtrack.title}
                 {isPlaying && (
                   <span style={{ display: 'inline-flex', gap: '2px', alignItems: 'flex-end', height: '12px' }}>
                     <span style={{ width: 2, height: '100%', background: 'var(--accent-green)', animation: 'blink 0.6s infinite' }} />
@@ -126,7 +134,7 @@ export default function AudioPlayer({ autoPlayTrigger }) {
               </div>
               {!minimized && (
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                  song.mpeg • Friendship Kernel OST
+                  {SYSTEM_DATA.systemConfig.soundtrack.file} • {SYSTEM_DATA.systemConfig.soundtrack.album}
                 </div>
               )}
             </div>
@@ -212,6 +220,7 @@ export default function AudioPlayer({ autoPlayTrigger }) {
           </div>
         )}
       </div>
+      )}
     </>
   );
 }
